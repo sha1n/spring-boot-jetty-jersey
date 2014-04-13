@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+
+<!-- =============================================================== -->
+<!--                Jetty URL Rewrite Handlers                       -->
+<!-- =============================================================== -->
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+    <Get id="oldhandler" name="handler"/>
+
+    <!-- Set the rewrite handler as the main server handler -->
+    <Set name="handler">
+        <!-- create and configure the rewrite handler -->
+        <New id="Rewrite" class="org.eclipse.jetty.rewrite.handler.RewriteHandler">
+            <Set name="rewriteRequestURI">true</Set>
+            <Set name="rewritePathInfo">false</Set>
+            <Set name="originalPathAttribute">requestedPath</Set>
+
+            <Call name="addRule">
+                <Arg>
+                    <New class="org.eclipse.jetty.rewrite.handler.RewritePatternRule">
+                        <Set name="pattern">/welcome</Set>
+                        <Set name="replacement">/index.html</Set>
+                    </New>
+                </Arg>
+            </Call>
+
+            <Call name="addRule">
+                <Arg>
+                    <New class="org.eclipse.jetty.rewrite.handler.RewriteRegexRule">
+                        <Set name="regex">/</Set>
+                        <Set name="replacement">/welcome.html</Set>
+                    </New>
+                </Arg>
+            </Call>
+
+            <Set name="handler">
+                <Ref refid="oldhandler"/>
+            </Set>
+        </New>
+    </Set>
+
+</Configure>

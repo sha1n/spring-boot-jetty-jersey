@@ -23,6 +23,7 @@ public class JettyConfigurer implements JettyServerCustomizer {
         try {
             // Load configuration from resource file (standard Jetty xml configuration) and configure the context.
             createConfiguration("/etc/jetty.xml").configure(webAppContext);
+            createConfiguration("/etc/jetty-rewrite.xml").configure(server);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
