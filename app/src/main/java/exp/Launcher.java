@@ -4,6 +4,7 @@ import exp.rest.ApplicationConfiguration;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
 import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory;
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
@@ -20,6 +21,7 @@ import org.springframework.context.annotation.Configuration;
  * Date: 4/13/14
  */
 @Configuration
+@EnableAutoConfiguration
 @ComponentScan(basePackages = {"exp.rest"})
 public class Launcher extends SpringBootServletInitializer {
 
@@ -37,7 +39,7 @@ public class Launcher extends SpringBootServletInitializer {
 
     @Bean
     public EmbeddedServletContainerFactory containerFactory() {
-        final JettyEmbeddedServletContainerFactory jettyEmbeddedServletContainerFactory = new JettyEmbeddedServletContainerFactory(8080);
+        final JettyEmbeddedServletContainerFactory jettyEmbeddedServletContainerFactory = new JettyEmbeddedServletContainerFactory();
         return jettyEmbeddedServletContainerFactory;
     }
 
