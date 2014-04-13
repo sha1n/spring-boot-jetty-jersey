@@ -3,18 +3,18 @@
 <Configure class="org.eclipse.jetty.webapp.WebAppContext">
 
     <Set name="resourceBase">
-        <SystemProperty name="app.content.base" default="./web-content/"/>
+        <SystemProperty name="app.content.base" default="./web-content/app"/>
     </Set>
 
     <!-- Error Page by Code -->
     <Get name="errorHandler">
         <Call name="addErrorPage">
             <Arg type="int">404</Arg>
-            <Arg type="String">/app/404.html</Arg>
+            <Arg type="String">/404.html</Arg>
         </Call>
         <Call name="addErrorPage">
             <Arg type="int">500</Arg>
-            <Arg type="String">/app/500.html</Arg>
+            <Arg type="String">/500.html</Arg>
         </Call>
     </Get>
 
