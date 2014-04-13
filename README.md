@@ -1,7 +1,7 @@
 spring-boot-jetty-jersey
 ========================
 
-This repository contains a simple example of how to build a Spring-Boot based executable web application using an embedded Jetty and Jersey 2.0 JAX-RS implementation.
+This repository contains a simple example of how to build a Spring-Boot based executable web application using an embedded Jetty and Jersey 2 JAX-RS implementation.
 
 To run this example follow these steps:
 
