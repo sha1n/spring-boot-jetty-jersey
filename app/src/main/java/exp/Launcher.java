@@ -14,6 +14,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
+import java.util.Arrays;
+
 /**
  * This is the Spring-Boot application launcher
  *
@@ -40,6 +42,7 @@ public class Launcher extends SpringBootServletInitializer {
     @Bean
     public EmbeddedServletContainerFactory containerFactory() {
         final JettyEmbeddedServletContainerFactory jettyEmbeddedServletContainerFactory = new JettyEmbeddedServletContainerFactory();
+        jettyEmbeddedServletContainerFactory.setServerCustomizers(Arrays.asList(new JettyConfigurer()));
         return jettyEmbeddedServletContainerFactory;
     }
 
