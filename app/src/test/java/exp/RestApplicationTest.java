@@ -3,6 +3,7 @@ package exp;
 import exp.rest.resources.TestResource;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.test.IntegrationTest;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.TestRestTemplate;
@@ -25,14 +26,42 @@ import static org.junit.Assert.assertEquals;
 @DirtiesContext
 public class RestApplicationTest {
 
+    @Value("${management.address}")
+    String managementAddress;
+
+    @Value("${management.port}")
+    int managementPort;
+
+    @Value("${server.address}")
+    String serverAddress;
+
+    @Value("${server.port}")
+    int serverPort;
+
+    String serverBaseUrl() {
+        return "http://" + serverAddress + ":" + serverPort;
+    }
+
+    String managementBaseUrl() {
+        return "http://" + managementAddress + ":" + managementPort;
+    }
+
     @Test
     public void testTestResourceTest() throws Exception {
-        doTest("http://localhost:8080/api/test");
+        doTest(serverBaseUrl() + "/api/test");
     }
 
     @Test
     public void testTestResourceTestAsync() throws Exception {
-        doTest("http://localhost:8080/api/test/async");
+        doTest(serverBaseUrl() + "/api/test/async");
+    }
+
+    @Test
+    public void testHealthResource() throws Exception {
+        ResponseEntity<String> entity =
+                new TestRestTemplate().getForEntity(managementBaseUrl() + "/health", String.class);
+        assertEquals(HttpStatus.OK, entity.getStatusCode());
+        assertEquals("ok", entity.getBody());
     }
 
     private void doTest(String url) {
