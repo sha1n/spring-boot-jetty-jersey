@@ -9,3 +9,5 @@ To run this example follow these steps:
 2. $ cd spring-boot-jetty-jersey
 3. $ mvn install
 4. $JAVA_HOME/bin/java -jar ./app/target/app-1.0-SNAPSHOT.jar
+
+To test the app, send HTTP GET on http://localhost:8080/api/test
