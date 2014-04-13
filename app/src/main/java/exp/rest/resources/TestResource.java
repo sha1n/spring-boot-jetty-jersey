@@ -39,6 +39,7 @@ public class TestResource {
 
     public static class Resp {
 
+        public String message = "Spring Boot Test";
         public long timestamp = System.currentTimeMillis();
     }
 }
