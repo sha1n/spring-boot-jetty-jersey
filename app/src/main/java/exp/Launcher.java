@@ -11,7 +11,6 @@ import org.springframework.boot.context.embedded.EmbeddedServletContainerFactory
 import org.springframework.boot.context.embedded.ServletRegistrationBean;
 import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainer;
 import org.springframework.boot.context.embedded.jetty.JettyEmbeddedServletContainerFactory;
-import org.springframework.boot.context.embedded.jetty.PatchedJettyEmbeddedServletContainer;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -49,7 +48,7 @@ public class Launcher extends SpringBootServletInitializer {
         final JettyEmbeddedServletContainerFactory jettyEmbeddedServletContainerFactory = new JettyEmbeddedServletContainerFactory() {
             @Override
             protected JettyEmbeddedServletContainer getJettyEmbeddedServletContainer(Server server) {
-                return new PatchedJettyEmbeddedServletContainer(server);
+                return new JettyEmbeddedServletContainer(server);
             }
         };
         jettyEmbeddedServletContainerFactory.addServerCustomizers(new JettyConfigurer());
