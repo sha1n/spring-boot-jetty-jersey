@@ -61,7 +61,7 @@ public class RestApplicationTest {
         ResponseEntity<String> entity =
                 new TestRestTemplate().getForEntity(managementBaseUrl() + "/health", String.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
-        assertEquals("ok", entity.getBody());
+        assertEquals("{\"status\":\"UP\"}", entity.getBody());
     }
 
     private void doTest(String url) {
