@@ -14,9 +14,9 @@
     <artifactId>app</artifactId>
 
     <properties>
-        <jetty.version>9.2.2.v20140723</jetty.version>
+        <jetty.version>9.2.6.v20141205</jetty.version>
         <jax.rs.version>2.0.1</jax.rs.version>
-        <jersey.version>2.12</jersey.version>
+        <jersey.version>2.15</jersey.version>
     </properties>
 
     <dependencies>
