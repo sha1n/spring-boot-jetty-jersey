@@ -1,0 +1,20 @@
+# Server address
+server:
+  address: "localhost"
+  port: 8080
+
+# Management interface
+management:
+  server:
+    port: 9090
+  endpoint:
+    info:
+      enabled: true
+    health:
+      enabled: true
+  endpoints:
+    web:
+      base-path: "/management"
+      exposure:
+        include: "*"
+
