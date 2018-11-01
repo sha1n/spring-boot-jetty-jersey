@@ -2,14 +2,26 @@
 
 spring-boot-jetty-jersey
 ========================
-
 This repository contains a simple example of how to build a Spring-Boot based executable web application using an embedded Jetty and Jersey 2 JAX-RS implementation.
 
-To run this example follow these steps:
+# Main Library Versions
+1. Spring-Boot 2.1.x
+2. Jetty 9.4.x
+3. Jersey 2.27
+4. Tested with open jdk 8 and 11
 
-1. $ git clone https://github.com/sha1n/spring-boot-jetty-jersey.git
-2. $ cd spring-boot-jetty-jersey
-3. $ mvn install
-4. $JAVA_HOME/bin/java -jar ./app/target/app-1.0-SNAPSHOT.jar
+# How to run this example:
+```
+# clone
+git clone https://github.com/sha1n/spring-boot-jetty-jersey.git
 
-To test the app, send HTTP GET on http://localhost:8080/api/test
+# build
+cd spring-boot-jetty-jersey
+mvn install
+
+# run
+$JAVA_HOME/bin/java -jar ./app/target/app-1.0-SNAPSHOT.jar
+
+# test
+curl -v  http://localhost:8080/api/test
+```
