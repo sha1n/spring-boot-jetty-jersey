@@ -14,9 +14,13 @@
     <artifactId>app</artifactId>
 
     <properties>
-        <jetty.version>9.2.6.v20141205</jetty.version>
-        <jax.rs.version>2.0.1</jax.rs.version>
-        <jersey.version>2.15</jersey.version>
+        <jetty.version>9.4.8.v20171121</jetty.version>
+        <jax.rs.version>2.1.1</jax.rs.version>
+        <jersey.version>2.27</jersey.version>
+        <servlet.api.version>4.0.1</servlet.api.version>
+        <hibernate.validator.version>6.0.13.Final</hibernate.validator.version>
+        <jaxb.api.version>2.3.0</jaxb.api.version>
+        <javax.activation.version>1.2.0</javax.activation.version>
     </properties>
 
     <dependencies>
@@ -38,9 +42,13 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
+        <dependency> <!-- for actuator controllers -->
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-webmvc</artifactId>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-actuator</artifactId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <dependency>
             <groupId>org.eclipse.jetty</groupId>
@@ -60,12 +68,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator</artifactId>
-            <version>4.2.0.Final</version>
+            <version>${hibernate.validator.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>javax.servlet-api</artifactId>
-            <version>3.1.0</version>
+            <version>${servlet.api.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.ws.rs</groupId>
@@ -94,9 +102,20 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.ext</groupId>
-            <artifactId>jersey-spring3</artifactId>
+            <artifactId>jersey-spring4</artifactId>
             <version>${jersey.version}</version>
         </dependency>
+        <dependency>
+            <groupId>javax.xml.bind</groupId>
+            <artifactId>jaxb-api</artifactId>
+            <version>${jaxb.api.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.activation</groupId>
+            <artifactId>javax.activation</artifactId>
+            <version>${javax.activation.version}</version>
+        </dependency>
+
 
         <!-- Test Dependencies -->
         <dependency>
