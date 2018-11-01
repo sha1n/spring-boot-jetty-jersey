@@ -24,6 +24,8 @@ import static org.junit.Assert.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
 public class RestApplicationTest {
 
+    private static final int EXPECTED_DOWNLOAD_BYTES = 1024 * 1024 * 10;
+
     @Value("${management.server.port}")
     int managementPort;
 
@@ -60,6 +62,22 @@ public class RestApplicationTest {
                 new TestRestTemplate().getForEntity(managementBaseUrl() + "/health", String.class);
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         assertEquals("{\"status\":\"UP\"}", entity.getBody());
+    }
+
+    @Test
+    public void testStreamSync() {
+        testDownload("/api/stream/sync");
+    }
+
+    @Test
+    public void testStreamAsync() {
+        testDownload("/api/stream/async");
+    }
+
+    private void testDownload(String path) { // only checking stream length...
+        byte[] dataBytes = new TestRestTemplate().getForObject(serverBaseUrl() + path, byte[].class);
+
+        assertEquals(dataBytes.length, EXPECTED_DOWNLOAD_BYTES);
     }
 
     private void doTest(String url) {
