@@ -24,11 +24,7 @@ public class TestResource {
     @Path("async")
     @Produces(MediaType.APPLICATION_JSON)
     public void testAsync(@Suspended final AsyncResponse asyncResponse) {
-        executorService.execute(new Runnable() {
-            public void run() {
-                asyncResponse.resume(new Resp());
-            }
-        });
+        executorService.execute(() -> asyncResponse.resume(new Resp()));
     }
 
     @GET
