@@ -16,7 +16,7 @@ import java.io.IOException;
  * @author sha1n
  * Date: 4/13/14
  */
-public class JettyConfigurer implements JettyServerCustomizer {
+class JettyConfigurer implements JettyServerCustomizer {
 
     @Override
     public void customize(Server server) {
