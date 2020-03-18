@@ -6,8 +6,8 @@ This repository contains a simple example of how to build a Spring-Boot based ex
 
 # Main Library Versions
 1. Spring-Boot 2.1.x
-2. Jetty 9.4.x
-3. Jersey 2.27
+2. Jetty 9.4.27.v20200227
+3. Jersey 2.30.1
 4. Tested with open jdk 8 and 11
 
 # How to run this example:
