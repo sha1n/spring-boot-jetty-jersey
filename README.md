@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/sha1n/spring-boot-jetty-jersey.svg?branch=master)](https://travis-ci.org/sha1n/spring-boot-jetty-jersey)
+[![Build Status](https://travis-ci.com/sha1n/spring-boot-jetty-jersey.svg?branch=master)](https://travis-ci.org/sha1n/spring-boot-jetty-jersey)
 
 spring-boot-jetty-jersey
 ========================
