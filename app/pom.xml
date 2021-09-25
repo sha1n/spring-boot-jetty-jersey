@@ -14,9 +14,9 @@
     <artifactId>app</artifactId>
 
     <properties>
-        <jetty.version>9.4.31.v20200723</jetty.version>
+        <jetty.version>9.4.43.v20210629</jetty.version>
         <jax.rs.version>2.1.1</jax.rs.version>
-        <jersey.version>2.32</jersey.version>
+        <jersey.version>2.34</jersey.version>
         <servlet.api.version>4.0.1</servlet.api.version>
         <hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
         <jaxb.api.version>2.3.1</jaxb.api.version>
