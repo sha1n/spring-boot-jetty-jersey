@@ -1,10 +1,10 @@
 package exp.rest.resources;
 
-import org.apache.commons.io.IOUtils;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.Random;
 
-import javax.servlet.AsyncContext;
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletResponse;
 import javax.servlet.WriteListener;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,10 +15,8 @@ import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Random;
+
+import org.apache.commons.io.IOUtils;
 
 @Path("/stream")
 public class TestStream {
@@ -30,11 +28,11 @@ public class TestStream {
                             @Context HttpServletRequest servletRequest) throws IOException {
         assert servletRequest.isAsyncStarted();
 
-        final AsyncContext asyncContext = servletRequest.getAsyncContext();
-        final ServletResponse response = asyncContext.getResponse();
-        final int bufferSize = response.getBufferSize();
-        final ServletOutputStream servletOutputStream = response.getOutputStream();
-        final InputStream randomInputStream = random10MegStream();
+        final var asyncContext = servletRequest.getAsyncContext();
+        final var response = asyncContext.getResponse();
+        final var bufferSize = response.getBufferSize();
+        final var servletOutputStream = response.getOutputStream();
+        final var randomInputStream = createRandom10MegStream();
 
         WriteListener writeHandler = new WriteListener() {
             volatile boolean done = false;
@@ -65,15 +63,15 @@ public class TestStream {
     @GET
     @Produces(MediaType.APPLICATION_OCTET_STREAM)
     public void streamSync(@Context HttpServletResponse servletResponse) throws IOException {
-
-        ServletOutputStream servletOutputStream = servletResponse.getOutputStream();
-        InputStream is = random10MegStream();
+        var servletOutputStream = servletResponse.getOutputStream();
+        var is = createRandom10MegStream();
         IOUtils.copy(is, servletOutputStream, servletResponse.getBufferSize());
     }
 
-    private InputStream random10MegStream() {
-        byte[] data = new byte[1024 * 1024 * 10];
+    private InputStream createRandom10MegStream() {
+        var data = new byte[1024 * 1024 * 10];
         new Random().nextBytes(data);
+
         return new ByteArrayInputStream(data);
     }
 

@@ -1,12 +1,12 @@
 package exp;
 
+import java.io.IOException;
+
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.webapp.WebAppContext;
+import org.eclipse.jetty.util.resource.Resource;
 import org.eclipse.jetty.xml.XmlConfiguration;
 import org.springframework.boot.web.embedded.jetty.JettyServerCustomizer;
 import org.xml.sax.SAXException;
-
-import java.io.IOException;
 
 
 /**
@@ -20,7 +20,7 @@ class JettyConfigurer implements JettyServerCustomizer {
 
     @Override
     public void customize(Server server) {
-        WebAppContext webAppContext = (WebAppContext) server.getHandler();
+        var webAppContext = server.getHandler();
         try {
             // Load configuration from resource file (standard Jetty xml configuration) and configure the context.
             createConfiguration("/etc/jetty.xml").configure(webAppContext);
@@ -31,6 +31,6 @@ class JettyConfigurer implements JettyServerCustomizer {
     }
 
     private XmlConfiguration createConfiguration(String xml) throws IOException, SAXException {
-        return new XmlConfiguration(Launcher.class.getResourceAsStream(xml));
+        return new XmlConfiguration(Resource.newResource(Launcher.class.getResource(xml)));
     }
 }

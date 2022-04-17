@@ -1,89 +1,99 @@
 package exp;
 
-import exp.rest.resources.TestResource;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.web.client.TestRestTemplate;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.test.annotation.DirtiesContext;
-import org.springframework.test.context.junit4.SpringRunner;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.Objects;
 
-import static org.junit.Assert.assertEquals;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.web.server.LocalManagementPort;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.web.client.TestRestTemplate;
+import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.http.HttpStatus;
+import org.springframework.test.annotation.DirtiesContext;
+
+import exp.rest.resources.TestResource;
 
 /**
  * @author sha1n
  * Date: 4/13/14
  */
-@RunWith(SpringRunner.class)
 @DirtiesContext
-@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.DEFINED_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class RestApplicationTest {
 
     private static final int EXPECTED_DOWNLOAD_BYTES = 1024 * 1024 * 10;
 
-    @Value("${management.server.port}")
-    int managementPort;
+    @LocalServerPort
+    private int randomServerPort;
+
+    @LocalManagementPort
+    private int randomManagementPort;
 
     @Value("${management.endpoints.web.base-path}")
-    String managementBasePath;
+    private String managementBasePath;
 
-    @Value("${server.address}")
-    String serverAddress;
-
-    @Value("${server.port}")
-    int serverPort;
-
-    private String serverBaseUrl() {
-        return "http://" + serverAddress + ":" + serverPort;
-    }
-
-    private String managementBaseUrl() {
-        return "http://" + serverAddress + ":" + managementPort + managementBasePath;
-    }
+    private TestRestTemplate restTemplate = new TestRestTemplate();
 
     @Test
+    @DisplayName("HTTP GET test resource sync")
     public void testTestResourceTest() {
-        doTest(serverBaseUrl() + "/api/test");
+        testGetTestResourceFrom("/api/test");
     }
 
     @Test
+    @DisplayName("HTTP GET test resource async")
     public void testTestResourceTestAsync() {
-        doTest(serverBaseUrl() + "/api/test/async");
+        testGetTestResourceFrom("/api/test/async");
     }
 
     @Test
-    public void testHealthResource() {
-        ResponseEntity<String> entity =
-                new TestRestTemplate().getForEntity(managementBaseUrl() + "/health", String.class);
+    @DisplayName("HTTP GET management/health ")
+    public void testManagementHealthResource() {
+        var entity = restTemplate.getForEntity(aManagementUrlWith("/health"), String.class);
+
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         assertEquals("{\"status\":\"UP\"}", entity.getBody());
     }
 
     @Test
+    @DisplayName("HTTP GET download sync")
     public void testStreamSync() {
-        testDownload("/api/stream/sync");
+        testDownloadResourceFrom("/api/stream/sync");
     }
 
     @Test
+    @DisplayName("HTTP GET download async")
     public void testStreamAsync() {
-        testDownload("/api/stream/async");
+        testDownloadResourceFrom("/api/stream/async");
     }
 
-    private void testDownload(String path) { // only checking stream length...
-        byte[] dataBytes = new TestRestTemplate().getForObject(serverBaseUrl() + path, byte[].class);
+    private void testDownloadResourceFrom(String path) { // only checking stream length...
+        var resourceUrl = aResourceUrlWith(path);
+        var dataBytes = restTemplate.getForObject(resourceUrl, byte[].class);
 
         assertEquals(dataBytes.length, EXPECTED_DOWNLOAD_BYTES);
     }
 
-    private void doTest(String url) {
-        ResponseEntity<TestResource.Resp> entity =
-                new TestRestTemplate().getForEntity(url, TestResource.Resp.class);
+    private void testGetTestResourceFrom(String path) {
+        var resourceUrl = aResourceUrlWith(path);
+        var entity = restTemplate.getForEntity(resourceUrl, TestResource.TestResponse.class);
+
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         assertEquals("Spring Boot Test", Objects.requireNonNull(entity.getBody()).message);
+    }
+
+    private String aManagementUrlWith(String path) {
+        return this.aServerUrlWith(randomManagementPort, managementBasePath + path);
+    }
+
+    private String aResourceUrlWith(String path) {
+        return this.aServerUrlWith(randomServerPort, path);
+    }
+
+    private String aServerUrlWith(int port, String path) {
+        return String.format("http://localhost:%d%s", port, path);
     }
 }

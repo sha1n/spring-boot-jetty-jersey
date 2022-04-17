@@ -24,17 +24,16 @@ public class TestResource {
     @Path("async")
     @Produces(MediaType.APPLICATION_JSON)
     public void testAsync(@Suspended final AsyncResponse asyncResponse) {
-        executorService.execute(() -> asyncResponse.resume(new Resp()));
+        executorService.execute(() -> asyncResponse.resume(new TestResponse()));
     }
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Resp test() {
-        return new Resp();
+    public TestResponse test() {
+        return new TestResponse();
     }
 
-    public static class Resp {
-
+    public static class TestResponse {
         public String message = "Spring Boot Test";
         public long timestamp = System.currentTimeMillis();
     }
