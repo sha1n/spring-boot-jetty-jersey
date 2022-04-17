@@ -1,6 +1,5 @@
 package exp;
 
-import exp.rest.ApplicationConfiguration;
 import org.glassfish.jersey.servlet.ServletContainer;
 import org.glassfish.jersey.servlet.ServletProperties;
 import org.springframework.boot.SpringApplication;
@@ -11,6 +10,8 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+
+import exp.rest.ApplicationConfiguration;
 
 
 /**
@@ -33,15 +34,15 @@ public class Launcher extends SpringBootServletInitializer {
     }
 
     @Bean
-    public ServletRegistrationBean jerseyServlet() {
-        ServletRegistrationBean registration = new ServletRegistrationBean<>(new ServletContainer(), "/api/*");
+    public ServletRegistrationBean<ServletContainer> jerseyServlet() {
+        var registration = new ServletRegistrationBean<>(new ServletContainer(), "/api/*");
         registration.addInitParameter(ServletProperties.JAXRS_APPLICATION_CLASS, ApplicationConfiguration.class.getName());
         return registration;
     }
 
     @Bean
     public JettyServletWebServerFactory containerFactory() {
-        final JettyServletWebServerFactory jettyEmbeddedServletContainerFactory = new JettyServletWebServerFactory();
+        final var jettyEmbeddedServletContainerFactory = new JettyServletWebServerFactory();
         jettyEmbeddedServletContainerFactory.addServerCustomizers(new JettyConfigurer());
         return jettyEmbeddedServletContainerFactory;
     }

@@ -20,7 +20,7 @@ public class ApplicationConfiguration extends ResourceConfig {
         super();
 
         // Create a recursive package scanner
-        PackageNamesScanner resourceFinder = new PackageNamesScanner(new String[]{"exp.rest.resources"}, true);
+        var resourceFinder = new PackageNamesScanner(new String[]{"exp.rest.resources"}, true);
         // Register the scanner with this Application
         registerFinder(resourceFinder);
         register(JacksonFeature.class);

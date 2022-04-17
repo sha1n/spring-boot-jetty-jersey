@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>experiment</groupId>
         <artifactId>spring-boot-jetty-jersey</artifactId>
@@ -12,16 +10,6 @@
 
     <groupId>exp</groupId>
     <artifactId>app</artifactId>
-
-    <properties>
-        <jetty.version>9.4.43.v20210629</jetty.version>
-        <jax.rs.version>2.1.1</jax.rs.version>
-        <jersey.version>2.34</jersey.version>
-        <servlet.api.version>4.0.1</servlet.api.version>
-        <hibernate.validator.version>6.1.5.Final</hibernate.validator.version>
-        <jaxb.api.version>2.3.1</jaxb.api.version>
-        <javax.activation.version>1.2.0</javax.activation.version>
-    </properties>
 
     <dependencies>
         <dependency>
@@ -42,7 +30,8 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-jetty</artifactId>
         </dependency>
-        <dependency> <!-- for actuator controllers -->
+        <dependency>
+            <!-- for actuator controllers -->
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
         </dependency>
@@ -76,7 +65,7 @@
             <version>${jetty.version}</version>
         </dependency>
         <dependency>
-            <groupId>org.hibernate</groupId>
+            <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate.validator.version}</version>
         </dependency>
@@ -138,22 +127,19 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>repackage</goal>
-                        </goals>
-                    </execution>
-                </executions>
             </plugin>
         </plugins>
     </build>
-
-
 </project>
