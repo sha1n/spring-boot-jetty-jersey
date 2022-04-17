@@ -40,13 +40,13 @@ public class RestApplicationTest {
     @Test
     @DisplayName("HTTP GET test resource sync")
     public void testTestResourceTest() {
-        testGetResourceFrom("/api/test");
+        testGetTestResourceFrom("/api/test");
     }
 
     @Test
     @DisplayName("HTTP GET test resource async")
     public void testTestResourceTestAsync() {
-        testGetResourceFrom("/api/test/async");
+        testGetTestResourceFrom("/api/test/async");
     }
 
     @Test
@@ -77,9 +77,9 @@ public class RestApplicationTest {
         assertEquals(dataBytes.length, EXPECTED_DOWNLOAD_BYTES);
     }
 
-    private void testGetResourceFrom(String path) {
+    private void testGetTestResourceFrom(String path) {
         var resourceUrl = aResourceUrlWith(path);
-        var entity = restTemplate.getForEntity(resourceUrl, TestResource.Resp.class);
+        var entity = restTemplate.getForEntity(resourceUrl, TestResource.TestResponse.class);
 
         assertEquals(HttpStatus.OK, entity.getStatusCode());
         assertEquals("Spring Boot Test", Objects.requireNonNull(entity.getBody()).message);
