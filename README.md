@@ -17,5 +17,5 @@ mvn install
 $JAVA_HOME/bin/java -jar ./app/target/app-1.0-SNAPSHOT.jar
 
 # test
-curl -v  http://localhost:8080/api/test
+curl -v  http://localhost:8080/api/test/sync
 ```
