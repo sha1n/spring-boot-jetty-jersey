@@ -9,12 +9,7 @@ import javax.ws.rs.core.MediaType;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-/**
- * This is a sample resource.
- *
- * @author sha1n
- * Date: 4/9/14
- */
+
 @Path("/test")
 public class TestResource {
 
@@ -28,6 +23,7 @@ public class TestResource {
     }
 
     @GET
+    @Path("sync")
     @Produces(MediaType.APPLICATION_JSON)
     public TestResponse test() {
         return new TestResponse();
