@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/sha1n/spring-boot-jetty-jersey.svg?branch=master)](https://travis-ci.com/sha1n/spring-boot-jetty-jersey)
+[![Java CI with Maven](https://github.com/sha1n/spring-boot-jetty-jersey/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/sha1n/spring-boot-jetty-jersey/actions/workflows/maven.yml)
 
 spring-boot-jetty-jersey
 ========================
