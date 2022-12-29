@@ -1,10 +1,12 @@
 package exp.rest;
 
+import javax.ws.rs.ApplicationPath;
+
 import org.glassfish.jersey.jackson.JacksonFeature;
 import org.glassfish.jersey.server.ResourceConfig;
-import org.glassfish.jersey.server.internal.scanning.PackageNamesScanner;
 
-import javax.ws.rs.ApplicationPath;
+import exp.rest.resources.TestResource;
+import exp.rest.resources.TestStream;
 
 /**
  * This is the Jersey Application class. Here we declare which packages contain JAX-RS resources, which Jersey features
@@ -19,10 +21,11 @@ public class ApplicationConfiguration extends ResourceConfig {
     public ApplicationConfiguration() {
         super();
 
-        // Create a recursive package scanner
-        var resourceFinder = new PackageNamesScanner(new String[]{"exp.rest.resources"}, true);
-        // Register the scanner with this Application
-        registerFinder(resourceFinder);
+        // Scan resources package
+        // packages("exp.rest.resources");  FIXME: doens't work with SB fat jar
+        register(TestResource.class);
+        register(TestStream.class);
+
         register(JacksonFeature.class);
     }
 }
